@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for item in messages %}
+        <div class="alert alert-{{ item.tags }}" role="alert">
+            {{ item }}
+        </div>
+    {% endfor %}
+    <h3>Заказ товара: {{ product.title }}</h3>
+    <div class="card" style="width: 18rem;">
+        <img src="{{ product.photo.url }}" class="card-img-top" alt="{{ product.title|capfirst }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.title|capfirst }} | {{ product.category.name }}</h5>
+            <p class="card-text">{{ product.desc|capfirst }}</p>
+        </div>
+        <div class="card-footer">
+            <div class="d-grid gap-2">
+                <a href="{% url 'mainapp:add_order' product.id %}" class="btn btn-primary">Купить</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

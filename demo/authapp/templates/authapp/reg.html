@@ -1,0 +1,16 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="login">
+        <form method="post">
+            <h3 class="text-center">Регистрация</h3>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

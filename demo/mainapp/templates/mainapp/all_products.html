@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Все товары</h3>
+
+    <h5 class="mt-3">Фильтровать товары:</h5>
+    <ul class="nav nav-pills mt-3">
+        {% for item in category %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ item.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="d-flex justify-content-between align-content-center flex-wrap mt-3">
+        {% for item in products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.title|capfirst }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title|capfirst }} | {{ item.category.name }}</h5>
+                    <p class="card-text">{{ item.desc|capfirst }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'mainapp:order' item.id %}" class="btn btn-primary">Заказать</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

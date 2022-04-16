@@ -1,0 +1,21 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="login">
+        <form method="post">
+            <h3 class="text-center">Авторизация</h3>
+            {% for item in messages %}
+                <div class="alert alert-{{ item.tags }}" role="alert">
+                    {{ item }}
+                </div>
+            {% endfor %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary">Войти</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

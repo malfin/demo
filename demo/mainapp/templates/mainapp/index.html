@@ -1,0 +1,35 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Главная</h3>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for item in products %}
+                {% with forloop.counter0 as i %}
+                    <div class="carousel-item {% if i is 0 %}active{% endif %}">
+                        <img src="{{ item.photo.url }}" class="d-block w-100" alt="{{ item.title }}">
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-around align-content-center flex-wrap mt-3">
+        {% for item in products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.title|capfirst }}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ item.title|capfirst }} | {{ item.category.name }}
+                    </h5>
+                    <p class="card-text">{{ item.desc|capfirst }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'mainapp:order' item.id %}" class="btn btn-primary">Заказать</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
