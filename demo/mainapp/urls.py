@@ -9,4 +9,6 @@ urlpatterns = [
     path('products/', mainapp.all_products, name='all_products'),
     path('order/<int:pk>/', mainapp.order, name='order'),
     path('order/add/<int:pk>/', mainapp.add_order, name='add_order'),
+
+    path('search/', mainapp.search, name='search'),
 ]

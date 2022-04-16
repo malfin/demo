@@ -47,3 +47,11 @@ def add_order(request, pk):
     return HttpResponseRedirect(
         reverse('mainapp:order', kwargs={'pk': product.id})
     )
+
+
+def search(request):
+    title_search = request.GET['search']
+    product = Products.objects.filter(title__icontains=title_search).first()
+    return HttpResponseRedirect(
+        reverse('mainapp:order', kwargs={'pk': product.id})
+    )
