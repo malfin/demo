@@ -52,6 +52,11 @@ def add_order(request, pk):
 def search(request):
     title_search = request.GET['search']
     product = Products.objects.filter(title__icontains=title_search).first()
-    return HttpResponseRedirect(
-        reverse('mainapp:order', kwargs={'pk': product.id})
-    )
+    if product:
+        return HttpResponseRedirect(
+            reverse('mainapp:order', kwargs={'pk': product.id})
+        )
+    else:
+        return HttpResponseRedirect(
+            reverse('mainapp:index')
+        )
