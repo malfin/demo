@@ -16,6 +16,19 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
+def places(request):
+    if 'Приторный' in request.GET:
+        products = Products.objects.filter(category__name__icontains='Приторный')
+    elif 'Цветочные' in request.GET:
+        products = Products.objects.filter(category__name__icontains='Цветочные')
+    else:
+        products = Products.objects.all()
+    context = {
+        'products': products,
+    }
+    return render(request, 'mainapp/order_type_catalog.html', context)
+
+
 def all_products(request):
     products = Products.objects.all()
     category = Category.objects.all()
@@ -60,3 +73,9 @@ def search(request):
         return HttpResponseRedirect(
             reverse('mainapp:index')
         )
+
+
+def places_order_set(request, order_type):
+    request.session['places_order_set'] = order_type
+    print(order_type)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
