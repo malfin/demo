@@ -17,14 +17,15 @@ def index(request):
 
 
 def places(request):
-    if 'Приторный' in request.GET:
-        products = Products.objects.filter(category__name__icontains='Приторный')
-    elif 'Цветочные' in request.GET:
-        products = Products.objects.filter(category__name__icontains='Цветочные')
+    category = Category.objects.all()
+    if 'search' in request.GET:
+        search_title = request.GET['search']
+        products = Products.objects.filter(category__name__icontains=search_title)
     else:
         products = Products.objects.all()
     context = {
         'products': products,
+        'category': category,
     }
     return render(request, 'mainapp/order_type_catalog.html', context)
 
@@ -60,19 +61,6 @@ def add_order(request, pk):
     return HttpResponseRedirect(
         reverse('mainapp:order', kwargs={'pk': product.id})
     )
-
-
-def search(request):
-    title_search = request.GET['search']
-    product = Products.objects.filter(title__icontains=title_search).first()
-    if product:
-        return HttpResponseRedirect(
-            reverse('mainapp:order', kwargs={'pk': product.id})
-        )
-    else:
-        return HttpResponseRedirect(
-            reverse('mainapp:index')
-        )
 
 
 def places_order_set(request, order_type):

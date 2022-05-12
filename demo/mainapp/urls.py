@@ -12,5 +12,5 @@ urlpatterns = [
     path('products/order/', mainapp.places, name='places'),
     path('products/order/places_order_set/<int:pk>/', mainapp.places_order_set, name='places_order_set'),
 
-    path('search/', mainapp.search, name='search'),
+    # path('search/', mainapp.search, name='search'),
 ]
